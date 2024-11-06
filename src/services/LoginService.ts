@@ -3,16 +3,14 @@ import { IUser } from "../interfaces/IUser";
 import { api } from "../boot/axios";
 
 export class LoginService {
-    private route: string;
     private api: AxiosInstance;
 
-    constructor(route: string) {
-        this.route = route;
+    constructor() {
         this.api = api
     }
 
     public async registryUser(user: IUser) {
-        const newUser = await this.api.post(`${this.route}/registrar`, {
+        const newUser = await this.api.post(`/registrar`, {
             nome: user.nome,
             email: user.email,
             senha: user.senha
@@ -25,7 +23,7 @@ export class LoginService {
     }
 
     public async loginUser(email: string, password: string) {
-        const login = await this.api.post(`${this.route}/login`, {
+        const login = await this.api.post(`/login`, {
             email: email,
             senha: password
         })

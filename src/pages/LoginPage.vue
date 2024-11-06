@@ -7,6 +7,7 @@
         <div class="input-group">
           <label for="email">Email</label>
           <input
+            v-model="email"
             type="email"
             id="email"
             placeholder="Digite seu email"
@@ -18,6 +19,7 @@
         <div class="input-group">
           <label for="password">Senha</label>
           <input
+            v-model="senha"
             type="password"
             id="password"
             placeholder="Digite sua senha"
@@ -26,10 +28,25 @@
         </div>
   
         <!-- Botão de Login -->
-        <button class="btn-submit">Entrar</button>
+        <button class="btn-submit" @click="logingUser">Entrar</button>
       </div>
     </div>
   </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { LoginService } from '../services/LoginService';
+
+const login = new LoginService();
+
+const email = ref<string>('');
+const senha = ref<string>('');
+
+const logingUser = async () => {
+    const data = await login.loginUser(email.value, senha.value);
+    console.log(data);
+}
+</script>
   
   <style scoped>
   * {
